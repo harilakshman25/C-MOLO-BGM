@@ -1,5 +1,8 @@
 # Start here — 25 October
 
+**GPU allocation confirmed:** follow [GPU_SETUP.md](GPU_SETUP.md) for the separate
+V100 environment and PyTorch compute test after the CPU checks pass.
+
 We have a working audio-pipeline scaffold, not a trained C-MoLo model. Today's concrete
 milestone is to run it on gpu73, pass the tests, and produce a 10-second diagnostic WAV.
 Then we establish an allocated GPU environment and generate real baseline audio.

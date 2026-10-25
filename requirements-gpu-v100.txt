@@ -1,0 +1,11 @@
+# Candidate inference stack for Python 3.11 + torch 2.7.1 CUDA 11.8.
+# Install torch separately from the official cu118 index first.
+# These are direct-dependency pins, not a complete transitive lockfile.
+torch==2.7.1
+diffusers==0.32.2
+transformers==4.49.0
+accelerate==1.4.0
+huggingface-hub==0.29.3
+sentencepiece==0.2.0
+protobuf==5.29.3
+numpy==2.2.6
