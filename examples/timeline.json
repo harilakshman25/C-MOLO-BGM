@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "story": "Rain fell outside the house. A dog barked near the gate while gentle piano music played inside.",
+  "duration_s": 10,
+  "sample_rate": 24000,
+  "seed": 42,
+  "timing_source": "manually-authored-test-fixture",
+  "cues": [
+    {"id":"rain_01","category":"rain","kind":"ambience","prompt":"Steady rainfall outside a house, no speech","start_s":0,"end_s":10,"gain_db":-18,"fade_s":0.2},
+    {"id":"dog_01","category":"dog","kind":"sfx","prompt":"A dog barking twice outdoors","start_s":3,"end_s":5,"gain_db":-8,"fade_s":0.03},
+    {"id":"piano_01","category":"piano","kind":"music","prompt":"Gentle solo piano instrumental, no vocals","start_s":2,"end_s":10,"gain_db":-20,"fade_s":0.2}
+  ]
+}
