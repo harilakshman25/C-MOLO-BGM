@@ -5,3 +5,5 @@ outputs/
 checkpoints/
 data/
 .env
+logs/
+.cache/

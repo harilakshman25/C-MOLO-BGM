@@ -1,5 +1,8 @@
 # BackgroundMellow extension: C-MoLo workbench
 
+**Getting started on gpu73 / the cluster:** read [START_HERE](docs/START_HERE.md)
+for the short file guide, CPU Conda setup, and revised 25-28 October priorities.
+
 CLI-first research scaffold for category audio LoRAs and temporal diffusion composition.
 Start with [architecture](docs/ARCHITECTURE.md) and the [19-28 October workflow](docs/WORKFLOW.md).
 
