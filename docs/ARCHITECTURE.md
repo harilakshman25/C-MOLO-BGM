@@ -1,5 +1,9 @@
 # C-MoLo: architecture and research proposal
 
+Implementation status update, 26 October: this document preserves the initial design.
+Base inference now runs on the V100; category LoRA training code is available for a smoke
+test. See LORA_PILOT.md for current scope and validation limits.
+
 Prepared 19 October 2026. Review: 28 October 2026. GPU access starts 22 October,
 approximately 48 GB VRAM; exact GPU, access hours and software environment remain to be confirmed.
 

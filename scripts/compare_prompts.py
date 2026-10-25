@@ -31,7 +31,10 @@ def main():
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--model", type=Path, default=Path("checkpoints/stable-audio-open-1.0"))
     parser.add_argument("--diagnostic", action="store_true")
+    parser.add_argument("--adapter", type=Path, help="Trained project-native LoRA checkpoint")
     args = parser.parse_args()
+    if args.diagnostic and args.adapter:
+        raise ValueError("Cannot evaluate an adapter with diagnostic tones")
     template = json.loads(Path("examples/dog-baseline.json").read_text())
     args.out.mkdir(parents=True, exist_ok=False)
     status = args.out / "status.json"
@@ -50,7 +53,12 @@ def main():
             torch.cuda.reset_peak_memory_stats()
             metadata["model"] = json.loads((args.model / "download_manifest.json").read_text())
             print("Loading model once for six samples...", flush=True)
-            backend = StableAudioBackend(args.model, steps=100)
+            backend = StableAudioBackend(args.model, steps=100, adapter_path=args.adapter)
+            if args.adapter:
+                import hashlib
+                metadata["purpose"] = "dog-LoRA pilot; compare to unchanged base prompt study"
+                metadata["adapter"] = backend.adapter_metadata
+                metadata["adapter_sha256"] = hashlib.sha256(args.adapter.read_bytes()).hexdigest()
             metadata.update(torch=torch.__version__, cuda_runtime=torch.version.cuda,
                             gpu=torch.cuda.get_device_name(0), dtype="float16",
                             scheduler=type(backend.pipe.scheduler).__name__,

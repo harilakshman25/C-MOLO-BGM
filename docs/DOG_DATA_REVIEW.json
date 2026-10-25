@@ -1,0 +1,11 @@
+{
+  "decision": "accept_all_for_pilot",
+  "dataset": "ESC-50 dog subset",
+  "expected_clips": 40,
+  "reviewer": "user",
+  "date": "2026-10-26",
+  "evidence": "User reports listening to every clip, no birds or other anomalies; some room reflections and one or two angry barks.",
+  "interpretation": "Reflections and barking styles accepted as variation. Generic captions retained; no per-clip acoustic labels inferred.",
+  "split_policy": "Keep official folds: 1-3 train, 4 validation, 5 test. Test clips excluded from encoder caching, optimization and checkpoint selection.",
+  "limitation": "User reports listening to all clips, including potentially test clips; test partition is held out from training, not an unseen listening set."
+}

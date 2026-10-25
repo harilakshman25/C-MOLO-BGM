@@ -3,6 +3,10 @@
 **Getting started on gpu73 / the cluster:** read [START_HERE](docs/START_HERE.md)
 for the short file guide, CPU Conda setup, and revised 25-28 October priorities.
 
+**Current stage (26 October):** real base-model generation and the six-prompt pilot ran
+successfully on the V100. All 40 dog clips have been accepted by the user. The new
+[LoRA pilot guide](docs/LORA_PILOT.md) covers adapter training and the next GPU smoke test.
+
 CLI-first research scaffold for category audio LoRAs and temporal diffusion composition.
 Start with [architecture](docs/ARCHITECTURE.md) and the [19-28 October workflow](docs/WORKFLOW.md).
 
@@ -15,9 +19,13 @@ Start with [architecture](docs/ARCHITECTURE.md) and the [19-28 October workflow]
 - Deterministic diagnostic audio, external WAV stems, and an optional Stable Audio baseline adapter.
 - Run artifacts, failure status, seeds and WAV hashes; dataset split-leakage checks.
 
-**Not implemented yet:** local LLM planner, TTS/forced aligner, audio LoRA training,
-real-model masked denoising, perceptual evaluation, server or frontend. The Stable Audio
-adapter has not been GPU-tested here. Diagnostic tones are engineering fixtures, not dog,
+**New, awaiting full-model GPU verification:** category LoRA training, checkpoint loading,
+and the paired-prompt adapter evaluation path. Local numerical/adapter tests are separate
+from a real trained-model result.
+
+**Not implemented yet:** local LLM planner, TTS/forced aligner, real-model masked denoising,
+formal perceptual evaluation, server or frontend. The base Stable Audio inference path
+has passed on the V100. Diagnostic tones are engineering fixtures, not dog,
 rain or piano synthesis and not evidence of C-MoLo quality.
 
 ## Quick start
@@ -78,8 +86,9 @@ python -m bgm render data/timeline-44100.json --backend stable-audio --model che
 ```
 
 `--offload` uses model CPU offload. Memory fit is unverified on the local 6 GB GPU; the
-48 GB GPU is the planned development environment. No training or fused-model option is
-exposed until implemented and tested. Dependency ranges are provisional, not a lockfile.
+V100 32 GB is the verified baseline environment. Training is exposed separately through
+scripts/train_dog_lora.py; real-model fusion is not implemented. Use the pinned
+requirements-gpu-v100.txt for the working server environment.
 
 ## Files and reuse
 
