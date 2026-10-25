@@ -2,6 +2,7 @@
 # Install torch separately from the official cu118 index first.
 # These are direct-dependency pins, not a complete transitive lockfile.
 torch==2.7.1
+torchsde==0.2.6
 diffusers==0.32.2
 transformers==4.49.0
 accelerate==1.4.0

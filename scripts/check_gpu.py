@@ -5,10 +5,13 @@ import platform
 import torch
 import diffusers
 import transformers
-from diffusers import StableAudioPipeline
+from diffusers import StableAudioPipeline, CosineDPMSolverMultistepScheduler
+from importlib.metadata import version
 
 
 def main():
+    # Pipeline import alone does not exercise optional scheduler dependencies.
+    scheduler = CosineDPMSolverMultistepScheduler()
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA unavailable. Run inside the allocated GPU job, not on the head node.")
     if torch.cuda.device_count() != 1:
@@ -29,6 +32,8 @@ def main():
         "diffusers": diffusers.__version__,
         "transformers": transformers.__version__,
         "pipeline_import": StableAudioPipeline.__name__,
+        "scheduler_constructed": type(scheduler).__name__,
+        "torchsde": version("torchsde"),
         "CUDA_VISIBLE_DEVICES": os.environ.get("CUDA_VISIBLE_DEVICES"),
         "gpu": props.name,
         "capability": list(torch.cuda.get_device_capability(0)),

@@ -1,5 +1,19 @@
 # First real audio — 26 October
 
+Job 29954 stopped during loading because the initial dependency list omitted `torchsde`.
+The requirements now include `torchsde==0.2.6`, and the GPU check constructs the required
+scheduler. To repair the existing environment on gpu73 after pulling these changes:
+
+```bash
+conda activate cmolo-gpu
+python -m pip install -r requirements-gpu-v100.txt
+python -m pip check
+CUDA_VISIBLE_DEVICES="" python -c "from diffusers import CosineDPMSolverMultistepScheduler; s = CosineDPMSolverMultistepScheduler(); print('Scheduler ready')"
+```
+
+Then resubmit the baseline job from cluster100. No model re-download or environment
+recreation is needed for this error. The scheduler check above requires no GPU.
+
 Server job 29953 passed the FP16 GPU compute test on a V100 32 GB with torch 2.7.1+cu118,
 Diffusers 0.32.2 and Transformers 4.49.0. The next milestone is one five-second dog-bark
 sample from the unmodified base model. This is not LoRA training or C-MoLo fusion.
