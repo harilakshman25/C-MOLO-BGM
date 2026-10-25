@@ -1,5 +1,8 @@
 # V100 setup after successful allocation probe
 
+**Compute test now passed:** user-supplied job 29953 on 26 October confirmed FP16
+PyTorch computation and StableAudioPipeline import. Continue with [FIRST_REAL_AUDIO.md](FIRST_REAL_AUDIO.md).
+
 User-supplied job 29910 on 25 October 2026 confirmed gnode1, one allocated GPU
 (CUDA_VISIBLE_DEVICES=1), V100-PCIE-32GB hardware and driver 580.95.05.
 Two inventory rows do not mean two GPUs were allocated. Shared project path:

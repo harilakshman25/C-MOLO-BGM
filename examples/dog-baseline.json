@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "story": "A dog barks outdoors.",
+  "duration_s": 5,
+  "sample_rate": 44100,
+  "seed": 42,
+  "timing_source": "manually-authored-single-event-baseline",
+  "cues": [
+    {"id":"dog_01","category":"dog","kind":"sfx","prompt":"A dog barking clearly outdoors, natural field recording, no speech, no music.","start_s":0,"end_s":5,"gain_db":0,"fade_s":0.01}
+  ]
+}
