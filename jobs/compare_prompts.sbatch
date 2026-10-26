@@ -17,4 +17,9 @@ export OMP_NUM_THREADS=4
 export OPENBLAS_NUM_THREADS=4
 export HF_HUB_OFFLINE=1
 export TRANSFORMERS_OFFLINE=1
-srun "$BGM_PYTHON" -u scripts/compare_prompts.py --out "outputs/prompts-${SLURM_JOB_ID}"
+if [[ -n "${2:-}" ]]; then
+    test -f "$2"
+    srun "$BGM_PYTHON" -u scripts/compare_prompts.py --adapter "$2" --out "outputs/lora-prompts-${SLURM_JOB_ID}"
+else
+    srun "$BGM_PYTHON" -u scripts/compare_prompts.py --out "outputs/prompts-${SLURM_JOB_ID}"
+fi

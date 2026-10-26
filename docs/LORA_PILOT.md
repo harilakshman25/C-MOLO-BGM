@@ -100,7 +100,8 @@ validates adapter targets and records the adapter hash. Smoke-test and step-zero
 are rejected as quality-evaluation candidates. Use an actual trained pilot checkpoint;
 select based on the validation report before producing the same six prompt/seed samples.
 The adapter format is project-native, not a standard PEFT format. Real-model training and
-inference with these adapters remain unverified until the server smoke and pilot complete.
+training passed on the server (see results below). Generated-audio inference with the
+trained adapter is the next verification step.
 
 The local adapter tests verify zero initialization, gradients, frozen base weights,
 target selection, serialization/reload and scheduler-compatible velocity mathematics.
@@ -111,3 +112,33 @@ StableAudioDiTModel forward/backward with gradient checkpointing. Executed with 
 CPU-only torch 2.7.1 and Diffusers 0.32.2 under Python 3.13.5; the server continues using
 its existing Python 3.11 CUDA environment. Test libraries were installed only under ignored
 outputs/training-runtime; no existing Python environment or model weights were changed.
+
+## Completed server pilot and listening comparison
+
+User-supplied logs for job 29967 confirm 200 optimizer steps completed in 321.15 seconds.
+Validation loss: step 0 = 0.5087598581; step 50 = 0.3079632645;
+step 100 = 0.2956833843; step 150 = 0.2903111530; step 200 = 0.2877913692.
+The best checkpoint is step 200, a 43.43% reduction on this fixed denoising metric.
+Reload prediction error was zero. This does not establish improved audible quality.
+The four adapter tests also passed. Deprecation warnings did not stop execution.
+The smoke and pilot validation losses are not directly comparable: the smoke uses
+only two clips at one noise level; the pilot uses all eight clips at three levels.
+
+After pushing the local changes, pull on the server and submit from the project root:
+
+```bash
+cd ~/C-MOLO-BGM
+git pull --ff-only
+conda activate cmolo-gpu
+sbatch --partition=gpupart_v100 jobs/compare_prompts.sbatch "$CONDA_PREFIX/bin/python" outputs/lora-pilot-29967/best-adapter.pt
+```
+
+Read logs/cmolo-prompts-JOBID.out and .err. Expected marker: COMPARISON COMPLETE.
+New samples are in outputs/lora-prompts-JOBID/listen; the previous base samples remain
+in outputs/prompts-29956/listen. The six neutral sample numbers correspond between runs
+because both use the same prompts, seeds and fixed shuffle. Compare corresponding files
+for bark clarity, unwanted sounds, distortion, and variety. The renderer uses the same
+gain policy but does not loudness-match pairs, so louder alone does not mean better.
+This is an informal, unblinded pilot comparison. Verbal observations are sufficient;
+there is no requirement to repeat dataset review or fill another ratings sheet.
+Keep experiment.json for the model, checkpoint hash and prompt/seed mapping.
