@@ -3,9 +3,10 @@
 **Getting started on gpu73 / the cluster:** read [START_HERE](docs/START_HERE.md)
 for the short file guide, CPU Conda setup, and revised 25-28 October priorities.
 
-**Current stage (26 October):** real base-model generation and the six-prompt pilot ran
-successfully on the V100. All 40 dog clips have been accepted by the user. The new
-[LoRA pilot guide](docs/LORA_PILOT.md) covers adapter training and the next GPU smoke test.
+**Current stage (27 October):** base generation, 200-step dog LoRA training and adapter
+generation passed on the V100. Listening found mostly similar quality and one modest
+improvement. The [temporal pilot guide](docs/TEMPORAL_PILOT.md) covers the next GPU job:
+base versus full versus temporally masked adapter influence.
 
 CLI-first research scaffold for category audio LoRAs and temporal diffusion composition.
 Start with [architecture](docs/ARCHITECTURE.md) and the [19-28 October workflow](docs/WORKFLOW.md).
@@ -19,11 +20,11 @@ Start with [architecture](docs/ARCHITECTURE.md) and the [19-28 October workflow]
 - Deterministic diagnostic audio, external WAV stems, and an optional Stable Audio baseline adapter.
 - Run artifacts, failure status, seeds and WAV hashes; dataset split-leakage checks.
 
-**New, awaiting full-model GPU verification:** category LoRA training, checkpoint loading,
-and the paired-prompt adapter evaluation path. Local numerical/adapter tests are separate
-from a real trained-model result.
+**New, awaiting full-model GPU verification:** single-expert temporal prediction blending,
+with endpoint parity checks before the nine-sample listening experiment. All 24 local
+tests pass; server parity and acoustic timing remain unverified.
 
-**Not implemented yet:** local LLM planner, TTS/forced aligner, real-model masked denoising,
+**Not implemented yet:** local LLM planner, TTS/forced aligner, multi-expert model integration,
 formal perceptual evaluation, server or frontend. The base Stable Audio inference path
 has passed on the V100. Diagnostic tones are engineering fixtures, not dog,
 rain or piano synthesis and not evidence of C-MoLo quality.
