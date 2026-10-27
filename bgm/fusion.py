@@ -1,4 +1,5 @@
 """Scheduler-independent numerical fusion primitives, not a trained audio model."""
+from numbers import Real
 import numpy as np
 
 
@@ -8,8 +9,13 @@ def temporal_masks(cues, frames, frame_duration_s):
     frame_duration_s must come from the codec stride / sample rate, not clip duration
     divided by the model's padded latent length.
     """
-    if type(frames) is not int or frames <= 0 or not np.isfinite(frame_duration_s) or frame_duration_s <= 0:
+    # Model configs may serialize an integer frame count as a float (e.g. 1024.0).
+    # Accept exact whole values without silently truncating fractional lengths.
+    if (isinstance(frames, (bool, np.bool_)) or not isinstance(frames, Real)
+            or not np.isfinite(frames) or frames <= 0 or int(frames) != frames
+            or not np.isfinite(frame_duration_s) or frame_duration_s <= 0):
         raise ValueError("Positive frames and frame_duration_s required")
+    frames = int(frames)
     time = (np.arange(frames) + 0.5) * frame_duration_s
     masks = np.zeros((len(cues), frames), dtype=np.float64)
     for i, cue in enumerate(cues):

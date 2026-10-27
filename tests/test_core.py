@@ -61,6 +61,15 @@ class FusionTests(unittest.TestCase):
         self.assertEqual(int(masks.sum()), 100)
         self.assertTrue((masks[:, 100:] == 0).all())
 
+    def test_model_config_frame_count_types(self):
+        cues = [{"start_s": 1, "end_s": 3, "fade_s": 0.25}]
+        expected = temporal_masks(cues, 1024, 2048/44100)
+        for frames in (1024.0, np.int64(1024), np.float64(1024)):
+            np.testing.assert_array_equal(temporal_masks(cues, frames, 2048/44100), expected)
+        for frames in (True, np.bool_(True), 1024.5, float("nan"), float("inf"), 0, -1, "1024"):
+            with self.assertRaises(ValueError):
+                temporal_masks(cues, frames, 2048/44100)
+
     def test_soft_edges_and_bad_shape(self):
         masks = temporal_masks([{"start_s": 1, "end_s": 3, "fade_s": 0.5}], 40, 0.1)
         self.assertTrue(0 < masks[0, 10] < masks[0, 15])

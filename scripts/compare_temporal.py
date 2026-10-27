@@ -39,6 +39,8 @@ def main():
         sr = pipe.vae.sampling_rate
         frames = pipe.transformer.config.sample_size
         spacing = pipe.vae.hop_length / sr
+        print(f"Mask geometry: frames={frames!r} ({type(frames).__name__}), "
+              f"hop_length={pipe.vae.hop_length}, sample_rate={sr}, frame_seconds={spacing}", flush=True)
         cue = {"start_s": 3.0, "end_s": 6.0, "fade_s": 0.25}
         mask = torch.tensor(temporal_masks([cue], frames, spacing)[0], device="cuda", dtype=torch.float32)
         np.save(args.out / "mask.npy", mask.cpu().numpy())
