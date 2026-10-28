@@ -1,0 +1,2 @@
+# Install into the existing cmolo-gpu environment; keep torch/transformers unchanged.
+scipy==1.15.3

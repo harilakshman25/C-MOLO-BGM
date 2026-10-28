@@ -1,0 +1,14 @@
+{
+  "title": "The light in the forest",
+  "seed": 42,
+  "segments": [
+    {"text": "Rain drifted through the forest as Mira followed the narrow path toward an old cabin.", "effects": ["forest", "rain"]},
+    {"text": "Wind moved through the trees, shaking wet leaves above her head.", "effects": ["wind", "trees"]},
+    {"text": "Her footsteps pressed into the damp earth. Somewhere ahead, a dog barked.", "effects": ["footsteps", "dog"]},
+    {"text": "The rain grew heavier, and she began running toward the light in the window.", "effects": ["running", "rain"]},
+    {"text": "She stepped onto the wooden porch. The old boards creaked beneath her boots.", "effects": ["wood"]},
+    {"text": "Mira pushed the door. Its hinges gave a long creak as it opened.", "effects": ["door"]},
+    {"text": "Inside, a gentle piano melody filled the room. The dog settled beside the warm fireplace.", "effects": ["piano"]},
+    {"text": "She closed her eyes and listened, safe indoors while the rain whispered beyond the walls.", "effects": ["piano", "rain"]}
+  ]
+}

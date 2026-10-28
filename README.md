@@ -3,10 +3,11 @@
 **Getting started on gpu73 / the cluster:** read [START_HERE](docs/START_HERE.md)
 for the short file guide, CPU Conda setup, and revised 25-28 October priorities.
 
-**Current stage (27 October):** base generation, 200-step dog LoRA training and adapter
-generation passed on the V100. Listening found mostly similar quality and one modest
-improvement. The [temporal pilot guide](docs/TEMPORAL_PILOT.md) covers the next GPU job:
-base versus full versus temporally masked adapter influence.
+**Current stage (28 October):** base generation and dog LoRA training/inference passed.
+Temporal and regional composition ran correctly but did not establish bark timing control.
+The next deliverable is the [narrated forest-cabin demo](docs/STORY_DEMO.md), combining
+local CPU TTS, ten sound categories and an inspectable separate-stem mix. Its first
+server run is pending. Progress report and presentation are in `deliverables/`.
 
 CLI-first research scaffold for category audio LoRAs and temporal diffusion composition.
 Start with [architecture](docs/ARCHITECTURE.md) and the [19-28 October workflow](docs/WORKFLOW.md).

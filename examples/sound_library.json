@@ -1,0 +1,12 @@
+{
+  "rain": {"kind":"ambience", "seconds":12, "prompt":"Steady rainfall on leaves, consistent rain ambience, no thunder, no speech, no music."},
+  "forest": {"kind":"ambience", "seconds":12, "prompt":"Quiet forest ambience, soft rustling foliage and distant natural woodland sounds, no speech, no music."},
+  "wind": {"kind":"ambience", "seconds":10, "prompt":"A soft gust of wind blowing through a forest, airy wind sound, no speech, no music."},
+  "trees": {"kind":"ambience", "seconds":10, "prompt":"Tree leaves and branches rustling in the breeze, close natural foliage sound, no speech, no music."},
+  "footsteps": {"kind":"sfx", "seconds":5, "prompt":"Clearly audible slow footsteps walking on damp earth and gravel, close recording, no speech, no music."},
+  "dog": {"kind":"sfx", "seconds":5, "prompt":"An isolated dog barking, no other animals, no birds, no speech, no music."},
+  "running": {"kind":"sfx", "seconds":5, "prompt":"Clearly audible rapid running footsteps on a gravel path, close recording, no speech, no music."},
+  "wood": {"kind":"sfx", "seconds":5, "prompt":"Old wooden floorboards creaking under slow heavy footsteps, close recording, no speech, no music."},
+  "door": {"kind":"sfx", "seconds":5, "prompt":"An old wooden door slowly opening with a loud creaking hinge, isolated sound, no speech, no music."},
+  "piano": {"kind":"music", "seconds":20, "prompt":"Gentle slow solo piano instrumental melody, warm peaceful mood, soft sustained notes, no vocals, no other instruments."}
+}
