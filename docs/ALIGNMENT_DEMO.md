@@ -1,5 +1,33 @@
 # Word-timing refinement and 2 November deadline
 
+## First attempt and retry
+
+The first base.en run failed safely: the footsteps scene had transcript similarity
+0.70, below the unchanged 0.75 threshold. Other recognized triggers included Bart for
+barked, creek for creak and pea in a for piano. No aligned remix was produced.
+Do not weaken matching or substitute these words silently. The cause of recognition
+errors is not established; missing end timestamps were also reported.
+
+Retry on gpu73 after pulling the fix:
+
+```bash
+conda activate cmolo-gpu
+export CUDA_VISIBLE_DEVICES=""
+python scripts/download_aligner.py --size small
+python scripts/align_narration.py --model checkpoints/whisper-small-en --narration outputs/forest-narration --out outputs/forest-aligned-small-01
+```
+
+The larger English checkpoint is a retry, not a guaranteed fix. One second of trailing
+silence is added to each recognition input without changing the original narration or
+word-time origin. All matching/timestamp checks remain. Only after ALIGNMENT COMPLETE:
+
+```bash
+python scripts/render_story.py --narration outputs/forest-aligned-small-01 --library outputs/sound-library-30111 --out outputs/story-demo-aligned-small-01
+```
+
+If this retry still fails, preserve the successful original demo and manually annotate
+the six trigger times rather than spending repeated runs on uncertain ASR matching.
+
 Preserve outputs/story-demo-30111 as the first successful 62.33-second baseline.
 The new variant reuses its narration and selected sound library. Local Whisper base.en
 estimates word endpoints within each known narration segment. An explicit anchor file

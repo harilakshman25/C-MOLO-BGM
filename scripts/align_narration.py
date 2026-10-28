@@ -36,12 +36,15 @@ def main():
         sr=plan['sample_rate']; divisor=math.gcd(sr,16000)
         for i,segment in enumerate(segments):
             clip=sound[round(segment['start_s']*sr):round(segment['end_s']*sr)]
-            if len(clip)/sr>=30: raise ValueError('Sentence too long for this alignment pilot')
+            if len(clip)/sr+1>=30: raise ValueError('Sentence plus trailing silence too long for this alignment pilot')
             audio=resample_poly(clip,16000//divisor,sr//divisor).astype(np.float32)
+            # Give ASR a quiet ending rather than cutting exactly at the TTS boundary.
+            # Padding is trailing only, so word times need no offset correction.
+            audio=np.pad(audio,(0,16000))
             result=asr({'raw':audio,'sampling_rate':16000},return_timestamps='word',generate_kwargs={'do_sample':False})
             transcripts.append(result)
             (args.out/'recognized-words.json').write_text(json.dumps(transcripts,indent=2))
-            print(f"Aligned sentence {i+1}: {result['text']}",flush=True)
+            print(f"Recognized sentence {i+1}: {result['text']}",flush=True)
         revised,changes=align_cues(plan,segments,transcripts,json.loads(args.anchors.read_text()))
         (args.out/'timeline.json').write_text(json.dumps(revised,indent=2))
         for name in ('narration.wav','segments.json','tts-report.json'):
@@ -49,7 +52,8 @@ def main():
         (args.out/'alignment-report.json').write_text(json.dumps(dict(
             model=json.loads((args.model/'download_manifest.json').read_text()),
             narration_sha256=hashlib.sha256((args.out/'narration.wav').read_bytes()).hexdigest(),
-            changes=changes,note='ASR-estimated timing; not forced alignment. Source-stem lead-in can delay audible onset.'),indent=2))
+            changes=changes,trailing_silence_s=1.0,
+            note='ASR-estimated timing; not forced alignment. Source-stem lead-in can delay audible onset.'),indent=2))
         status.write_text(json.dumps(dict(state='completed')))
         print(f'ALIGNMENT COMPLETE: {args.out}')
     except Exception as exc:
