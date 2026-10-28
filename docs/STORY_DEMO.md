@@ -1,5 +1,27 @@
 # Story demo: narration, music and effects
 
+## Verified first run — 28 October, job 30111
+
+The local TTS run completed all eight segments. The GPU job generated 20 sound
+candidates and rendered the first narrated story mix. Copied outputs were verified:
+all 16 mix/narration/stem WAV hashes and all 20 candidate hashes matched their reports.
+The final mix is 62.332 seconds, 44.1 kHz stereo PCM16, with no full-scale PCM samples.
+The mixer applied -0.147 dB master gain; its reported render time was 1.73 seconds,
+excluding narration and sound generation. This is not a full-pipeline runtime.
+
+The listener described the result as almost perfect/almost good, with some sounds
+entering early or during narration. This is informal overall feedback, not a per-category
+coverage score or a claim of exact synchronization. The assistant verified files and
+timeline metadata, not acoustic events by listening.
+
+The opening rain bed starts at 0.0 seconds; the first narration segment starts at 1.0
+second. This one-second ambience lead-in is intentional in the authored plan. Other
+effect starts are approximate within-sentence offsets (35%, or 65% for dog), so they
+can precede their spoken trigger words. Speech/effect overlap is expected, but premature
+event onset is a remaining alignment limitation. Version 2 of the report and slides
+includes this successful run and the corrected 2 November deadline. Preserve this first
+mix as a baseline before adjusting individual cues.
+
 This separate-stem CLI baseline is distinct from the unsuccessful latent timing
 experiments. It uses a manually authored eight-sentence forest-cabin story, not an
 automatic LLM planner. Measured TTS sentence boundaries anchor authored within-sentence
@@ -75,14 +97,13 @@ sources get capped RMS gain adjustment; near-silent sources fail visibly. Existi
 mixing ducks ambience/music during narration and controls sample peaks; it is not
 LUFS mastering or a true-peak limiter. All current settings are demo defaults to review.
 
-## Presentation preparation through 3 November
+## Presentation preparation through 2 November (corrected deadline)
 
-- 28–29 October: get narration and first story mix running; choose candidate sounds.
+- 28–29 October: refine timing using [ALIGNMENT_DEMO.md](ALIGNMENT_DEMO.md); preserve the first successful mix.
 - 30 October: render a second story by editing the scene JSON; record limitations.
 - 31 October: freeze examples and compare base/dog-adapter and modular/latent results.
-- 1 November: update report and slides with verified story results; retain negative runs.
-- 2 November: rehearse, export copies and keep local audio backups.
-- 3 November: present implementation, evidence and remaining research questions.
+- 1 November: rehearse, export copies and keep local audio backups.
+- 2 November: presentation/submission deadline; present verified results and remaining questions.
 
 Server/frontend work follows a stable CLI demo; no web app is needed to demonstrate
 the architecture. Report the separate-stem baseline honestly alongside the research

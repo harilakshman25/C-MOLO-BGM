@@ -1,0 +1,8 @@
+{
+  "s02_footsteps_0": {"segment": 2, "word": "footsteps"},
+  "s02_dog_1": {"segment": 2, "word": "barked"},
+  "s03_running_0": {"segment": 3, "word": "running"},
+  "s04_wood_0": {"segment": 4, "word": "creaked"},
+  "s05_door_0": {"segment": 5, "word": "creak"},
+  "s06_piano_0": {"segment": 6, "word": "piano"}
+}

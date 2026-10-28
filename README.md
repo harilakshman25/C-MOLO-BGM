@@ -6,8 +6,11 @@ for the short file guide, CPU Conda setup, and revised 25-28 October priorities.
 **Current stage (28 October):** base generation and dog LoRA training/inference passed.
 Temporal and regional composition ran correctly but did not establish bark timing control.
 The next deliverable is the [narrated forest-cabin demo](docs/STORY_DEMO.md), combining
-local CPU TTS, ten sound categories and an inspectable separate-stem mix. Its first
-server run is pending. Progress report and presentation are in `deliverables/`.
+local CPU TTS, ten sound categories and an inspectable separate-stem mix. Job 30111
+completed the first 62.33-second narrated mix; user feedback is positive with timing
+refinements remaining. The [word-timing refinement](docs/ALIGNMENT_DEMO.md) is ready
+for its first CPU server check. Version 2 report/slides in `deliverables/` include
+the successful story run and the corrected **2 November** deadline.
 
 CLI-first research scaffold for category audio LoRAs and temporal diffusion composition.
 Start with [architecture](docs/ARCHITECTURE.md) and the [19-28 October workflow](docs/WORKFLOW.md).
