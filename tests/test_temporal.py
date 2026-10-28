@@ -18,9 +18,12 @@ class TemporalTests(unittest.TestCase):
                 self.layer.lora_b.data.fill_(0.5)
                 self.seen = []
 
-            def forward(self, x, timestep, return_dict=False):
+            def forward(self, x, timestep, return_dict=False, encoder_hidden_states=None, global_hidden_states=None):
                 self.seen.append((x.data_ptr(), timestep))
-                return (self.layer(x.transpose(1, 2)).transpose(1, 2),)
+                output = self.layer(x.transpose(1, 2)).transpose(1, 2)
+                if encoder_hidden_states is not None:
+                    output = output + encoder_hidden_states.mean(dim=(1, 2))[:, None, None]
+                return (output,)
         return Model().eval()
 
     def test_shared_inputs_blend_and_restore(self):
@@ -63,3 +66,26 @@ class TemporalTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             with masked_adapter(model, torch.tensor([float('nan')])):
                 pass
+
+    def test_regional_conditioning_control_and_adapter(self):
+        model = self.model()
+        x = torch.randn(2, 2, 4)
+        background = torch.zeros(2, 3, 2)
+        event = torch.zeros_like(background)
+        event[1] = 2  # Conditional CFG branch; unconditional remains zero.
+        duration = torch.ones(2, 1, 2)
+        kwargs = dict(return_dict=False, encoder_hidden_states=background, global_hidden_states=duration)
+        mask = torch.tensor([0., 0.25, 1., 0.])
+        model.layer.strength = 0
+        base = model(x, .5, **kwargs)[0]
+        for strength in (0, 1):
+            model.layer.strength = strength
+            expert = model(x, .5, **{**kwargs, "encoder_hidden_states": event})[0]
+            with masked_adapter(model, mask, event_condition=event, event_strength=strength):
+                actual = model(x, .5, **kwargs)[0]
+            torch.testing.assert_close(actual, base+mask*(expert-base))
+        self.assertTrue(torch.equal(background, torch.zeros_like(background)))
+        with self.assertRaises(ValueError):
+            with masked_adapter(model, mask, event_condition=event[:, :1]):
+                model(x, .5, **kwargs)
+        self.assertNotIn("forward", model.__dict__)
