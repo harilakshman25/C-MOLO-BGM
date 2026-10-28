@@ -1,5 +1,31 @@
 # Word-timing refinement and 2 November deadline
 
+## Current action: manual annotation after two failed ASR runs
+
+The small.en retry also stopped safely because barked was recognized as Bart; creak
+and piano were also misrecognized. No aligned remix was produced. Stop automatic
+recognition retries for this demo. Keep the original narration; recognition errors
+alone do not prove the speech is unintelligible to a human.
+
+Run `python scripts/make_timing_page.py` locally, then open
+outputs/forest-narration/manual-timing.html in a browser. Listen and mark the end of
+each of the six specified words. Export the JSON or paste it into the chat. No times
+are prefilled or inferred. The page references the adjacent local narration.wav.
+
+After saving the user's exported JSON as outputs/forest-manual-times.json:
+
+```bash
+python scripts/apply_manual_timing.py --marks outputs/forest-manual-times.json --out outputs/forest-manual
+python scripts/render_story.py --narration outputs/forest-manual --library outputs/sound-library-30111 --out outputs/story-demo-manual-01
+```
+
+These commands can run on CPU with the existing numpy environment. The marks must
+match the narration hash, contain all six cue IDs and lie inside their sentence bounds.
+Timing is explicitly recorded as human annotation, not model-derived alignment. Input
+marks and original outputs are preserved. First listen to the remixed output before
+selecting it for presentation. The earlier automatic attempts below are retained as
+experiment history, not instructions to retry them again.
+
 ## First attempt and retry
 
 The first base.en run failed safely: the footsteps scene had transcript similarity

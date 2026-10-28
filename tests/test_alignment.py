@@ -30,3 +30,13 @@ class AlignmentTests(unittest.TestCase):
         plan,segments,transcripts,anchors=self.fixture()
         transcripts[0]['text']='Completely different speech.'
         with self.assertRaises(ValueError): align_cues(plan,segments,transcripts,anchors)
+
+    def test_manual_marks_preserve_source_and_reject_bad_input(self):
+        from scripts.apply_manual_timing import apply_marks
+        plan,segments,_,anchors=self.fixture()
+        result,changes=apply_marks(plan,segments,anchors,{'dog':3.5})
+        self.assertAlmostEqual(result['cues'][0]['start_s'],3.58)
+        self.assertEqual(plan['cues'][0]['start_s'],1)
+        self.assertEqual(changes[0]['word_end_s'],3.5)
+        for marks in ({},{'dog':float('nan')},{'dog':True},{'dog':8},{'dog':3,'extra':4}):
+            with self.assertRaises(ValueError):apply_marks(plan,segments,anchors,marks)

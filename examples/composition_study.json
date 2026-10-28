@@ -1,0 +1,18 @@
+{
+  "title": "Mira and the lantern trail",
+  "duration_s": 20,
+  "seeds": [42, 123, 2026],
+  "local_weight": 4.0,
+  "scenes": [
+    {"id":"01_arrival", "text":"Mira reached the forest at dusk. Rain tapped the canopy, and the woodland stirred around her. She watched the narrow trail disappear between the dark trunks, then raised her lantern and stepped beneath the trees.", "cues":[["forest",0,20],["rain",0,20],["trees",8,18]]},
+    {"id":"02_path", "text":"Her footsteps pressed steadily into the damp path. A gust swept through the forest, bending the ferns beside her. She stopped to listen, then continued toward a distant light beyond the branches.", "cues":[["forest",0,20],["footsteps",2,10],["wind",10,19]]},
+    {"id":"03_warning", "text":"Rain thickened around Mira. Somewhere beside the trail, a dog barked sharply. She held her lantern still and waited. The dog called again, while the rain continued falling through the darkness.", "cues":[["rain",0,20],["dog",4,10],["dog",13,18]]},
+    {"id":"04_run", "text":"The lantern in the cabin window flickered. Mira began running along the gravel path as the wind rose behind her. Rain struck her coat, but the small circle of warm light kept her moving forward.", "cues":[["rain",0,20],["running",3,14],["wind",10,20]]},
+    {"id":"05_porch", "text":"At the cabin, Mira slowed to a walk. Her boots crossed the old wooden porch, and the boards creaked beneath her weight. Rain fell beyond the roof as she reached for the heavy door.", "cues":[["rain",0,20],["footsteps",1,7],["wood",8,16]]},
+    {"id":"06_door", "text":"Mira pushed against the wooden door. Its hinges answered with a long creak. Inside, a dog barked a greeting, then waited while she stepped across the threshold and lowered her dripping lantern.", "cues":[["wood",0,6],["door",3,10],["dog",11,17]]},
+    {"id":"07_room", "text":"A gentle piano melody drifted across the room. Mira walked over the wooden floor toward the window. The old boards answered softly beneath her boots, while the melody continued without a voice.", "cues":[["piano",0,20],["footsteps",2,8],["wood",9,16]]},
+    {"id":"08_window", "text":"She rested beside the window and listened to the piano. Outside, wind moved through the trees and shook their wet leaves. For a moment, the quiet room and the restless forest seemed to breathe together.", "cues":[["piano",0,20],["wind",3,15],["trees",8,20]]},
+    {"id":"09_return", "text":"The dog barked once more, and Mira opened the door to look outside. Rain glittered in the lantern light. A branch had fallen across the path, but the forest beyond it was calm again.", "cues":[["rain",0,20],["dog",1,6],["door",8,14],["forest",12,20]]},
+    {"id":"10_home", "text":"Mira hurried back across the porch, then closed the creaking door. The piano welcomed her into the warm room. She set down the lantern, knowing that the long walk through the forest was finally over.", "cues":[["running",0,6],["door",7,12],["piano",10,20]]}
+  ]
+}

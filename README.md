@@ -8,8 +8,11 @@ Temporal and regional composition ran correctly but did not establish bark timin
 The next deliverable is the [narrated forest-cabin demo](docs/STORY_DEMO.md), combining
 local CPU TTS, ten sound categories and an inspectable separate-stem mix. Job 30111
 completed the first 62.33-second narrated mix; user feedback is positive with timing
-refinements remaining. The [word-timing refinement](docs/ALIGNMENT_DEMO.md) is ready
-for its first CPU server check. Version 2 report/slides in `deliverables/` include
+refinements remaining. Word-timing polish is paused; the original demo is retained.
+The active research step is the [ten-scene composition study](docs/COMPOSITION_STUDY.md):
+a 200-second story, ten categories, three seeds, and four generation/mixing methods.
+The new local-window consensus implementation awaits full-checkpoint GPU results.
+Version 2 report/slides in `deliverables/` include
 the successful story run and the corrected **2 November** deadline.
 
 CLI-first research scaffold for category audio LoRAs and temporal diffusion composition.
@@ -24,11 +27,11 @@ Start with [architecture](docs/ARCHITECTURE.md) and the [19-28 October workflow]
 - Deterministic diagnostic audio, external WAV stems, and an optional Stable Audio baseline adapter.
 - Run artifacts, failure status, seeds and WAV hashes; dataset split-leakage checks.
 
-**New, awaiting full-model GPU verification:** single-expert temporal prediction blending,
-with endpoint parity checks before the nine-sample listening experiment. All 24 local
-tests pass; server parity and acoustic timing remain unverified.
+**Experimental:** single-expert temporal/regional blending passed server engineering
+checks but failed audible timing control. New local-window prediction consensus
+changes local duration conditioning and latent views; it is not yet proven effective.
 
-**Not implemented yet:** local LLM planner, TTS/forced aligner, multi-expert model integration,
+**Not implemented yet:** local LLM planner, reliable automatic forced alignment, a bank of trained category experts,
 formal perceptual evaluation, server or frontend. The base Stable Audio inference path
 has passed on the V100. Diagnostic tones are engineering fixtures, not dog,
 rain or piano synthesis and not evidence of C-MoLo quality.
